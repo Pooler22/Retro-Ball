@@ -18,26 +18,36 @@
       <canvas id="myCanvas" style="border:1px solid #d3d3d3;" onload="actualSize();">
       Your browser does not support the canvas element.
       </canvas>
+
     <script>
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         ctx.beginPath();
-        ctx.canvas.width = window.innerWidth;
-        ctx.canvas.height = window.innerHeight;
+        ctx.canvas.width = screen.width;
+        ctx.canvas.height = screen.height;
 
-        var imgData = ctx.createImageData(screen.width, screen.height);
+        var imgData = ctx.createImageData(window.innerWidth, window.innerHeight);
         var i;
         for (i = 0; i < imgData.data.length; i += 4) {
           imgData.data[i+0] = 102;
           imgData.data[i+1] = 153;
           imgData.data[i+2] = 255;
           imgData.data[i+3] = 255;
-}
-        ctx.putImageData(imgData, 0, 0);
+        }
 
+        ctx.putImageData(imgData, 0, 0);
         ctx.strokeStyle="#FFF";
         ctx.stroke();
         alert("Width of imgData is: " + imgData.width);
+      </script>
+
+      <canvas id="bowl">
+      </canvas>
+      <script>
+      var bowl = document.getElementById("bowl");
+      var ctx = bowl.getContext("2d");
+      ctx.beginPath();
+
       </script>
         <script type="text/javascript" src="scripts/game.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
