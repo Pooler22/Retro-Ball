@@ -101,7 +101,7 @@ function collisionDetection() {
 
 function drawBall() {
     ctx.beginPath();
-    ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+    ctx.arc(paddleX, paddleY, ballRadius, 0, Math.PI * 2);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
@@ -157,7 +157,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // drawBricks();
     drawBall();
-    drawPaddle();
+    //drawPaddle();
     drawScore();
     drawLives();
     drawHole();
@@ -170,23 +170,9 @@ function draw() {
         dy = -dy;
     }
 
-    if (x > paddleX && x < paddleX + paddleWidth) {
-        dy = -dy;
-    } else {
-        lives--;
-        if (!lives) {
-            //alert("GAME OVER");
-            document.location.reload();
-        } else {
-            x = canvas.width / 2;
-            y = canvas.height - 30;
-            dx = 3;
-            dy = -3;
-            paddleX = (canvas.width - paddleWidth) / 2;
-        }
+    if(paddleX > 100 && paddleX < 150 && paddleY > 100 && paddleY < 150){
+      document.location.reload();
     }
-
-
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
         paddleX += 7;
     } else if (leftPressed && paddleX > 0) {
