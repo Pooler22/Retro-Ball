@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>RetroBalls</title>
-    </head>
-    <body>
-      <canvas id="myCanvas" style="border:1px solid #d3d3d3;">
-      Your browser does not support the canvas element.
-      </canvas>
 
-        <script type="text/javascript" src="scripts/game2.js"></script>
-        <!-- <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-        <script type="text/javascript" src="scripts/index.js"></script> -->
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>RetroBalls</title>
+</head>
 
-    </body>
+<body>
+    <canvas id="myCanvas" style="background: #d3d3d3; width: 100%;">
+        Your browser does not support the canvas element.
+    </canvas>
+
+    <div id="example"></div>
+    <script src="scripts/browser.min.js"></script>
+    <script type="text/javascript" src="scripts/hole.js"></script>
+    <script type="text/javascript" src="scripts/ball.js"></script>
+    <script type="text/javascript" src="scripts/game2.js"></script>
+    <!-- <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script> -->
+
+</body>
+
 </html>

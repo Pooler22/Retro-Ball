@@ -1,60 +1,37 @@
+// jshint  esversion: 6
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 ctx.canvas.width = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
 
-var ballRadius = 10;
-var x = canvas.width / 2;
-var y = canvas.height - 30;
-var dx = 5;
-var dy = -5;
-var paddleHeight = 10;
-var paddleWidth = 75;
-var paddleX = (canvas.width - paddleWidth) / 2;
-var paddleY = (canvas.height - paddleHeight) / 2;
+var ball = new Ball(10, canvas.width / 2, canvas.height / 2);
+var hole = new Hole(20, canvas.width / 3, canvas.height / 3);
+
+
 var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
-var brickRowCount = 5;
-var brickColumnCount = 3;
-var brickWidth = 75;
-var brickHeight = 20;
-var brickPadding = 10;
-var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
-var score = 0;
-var lives = 3;
-var hole;
-
-var bricks = [];
-for (c = 0; c < brickColumnCount; c++) {
-    bricks[c] = [];
-    for (r = 0; r < brickRowCount; r++) {
-        bricks[c][r] = {
-            x: 0,
-            y: 0,
-            status: 1
-        };
-    }
-}
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("mousemove", mouseMoveHandler, false);
-
+// document.addEventListener("mousemove", mouseMoveHandler, false);
 
 function keyDownHandler(e) {
     if (e.keyCode == 39) {
         rightPressed = true;
+        ball.addSpeed(-1, 0);
     } else if (e.keyCode == 37) {
         leftPressed = true;
+        ball.addSpeed(1, 0);
     } else if (e.keyCode == 38) {
         upPressed = true;
+        ball.addSpeed(0, 1);
     } else if (e.keyCode == 40) {
         downPressed = true;
+        ball.addSpeed(0, -1);
     }
-
 }
 
 function keyUpHandler(e) {
@@ -68,125 +45,51 @@ function keyUpHandler(e) {
         downPressed = false;
     }
 }
+//
+// function mouseMoveHandler(e) {
+//     var relativeX = e.clientX - canvas.offsetLeft;
+//     var relativeY = e.clientY - canvas.offsetTop;
+//     if (relativeX > 0 && relativeX < canvas.width && relativeY > 0 && relativeY < canvas.height) {
+//         ball.addSpeed((canvas.width / 2) - e.clientX, (canvas.height / 2) - e.clientY);
+//         // ball.positionX = relativeX - 100 / 2;
+//         // ball.positionY = relativeY - 100 / 2;
+//     }
+// }
 
-function mouseMoveHandler(e) {
-    var relativeX = e.clientX - canvas.offsetLeft;
-    if (relativeX > 0 && relativeX < canvas.width) {
-        paddleX = relativeX - paddleWidth / 2;
+
+function render() {
+    update();
+    draw();
+    requestAnimationFrame(render);
+}
+
+function update() {
+    // if (x + dx > canvas.width - ball.radius || x + dx < ball.radius) {
+    //     dx = -dx;
+    // }
+    // if (y + dy > canvas.height - ball.radius || y + dy < ball.radius) {
+    //     dy = -dy;
+    // }
+
+    if (hole.colision(ball)) {
+        document.location.reload();
     }
-    var relativeY = e.clientY - canvas.offsetTop;
-    if (relativeY > 0 && relativeY < canvas.height) {
-        paddleY = relativeY - paddleHeight / 2;
+
+    if (rightPressed && ball.positionX < canvas.width - 100) {
+        ball.positionX += ball.speedX;
+    } else if (leftPressed && ball.positionX > 0) {
+        ball.positionX -= ball.speedX;
+    } else if (upPressed && ball.positionY > 0) {
+        ball.positionY -= ball.speedY;
+    } else if (downPressed && ball.positionY < canvas.height) {
+        ball.positionY += ball.speedY;
     }
-}
-
-function collisionDetection() {
-    for (c = 0; c < brickColumnCount; c++) {
-        for (r = 0; r < brickRowCount; r++) {
-            var b = bricks[c][r];
-            if (b.status == 1) {
-                if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
-                    dy = -dy;
-                    b.status = 0;
-                    score++;
-                    if (score == brickRowCount * brickColumnCount) {
-                        //alert("YOU WIN, CONGRATS!");
-                        document.location.reload();
-                    }
-                }
-            }
-        }
-    }
-}
-
-function drawBall() {
-    ctx.beginPath();
-    ctx.arc(paddleX, paddleY, ballRadius, 0, Math.PI * 2);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
-}
-
-function drawHole() {
-    ctx.beginPath();
-    ctx.arc(100, 100, 50, 0, Math.PI * 2);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
-}
-
-function drawPaddle() {
-    ctx.beginPath();
-    ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
-}
-
-function drawBricks() {
-    for (c = 0; c < brickColumnCount; c++) {
-        for (r = 0; r < brickRowCount; r++) {
-            if (bricks[c][r].status == 1) {
-                var brickX = (r * (brickWidth + brickPadding)) + brickOffsetLeft;
-                var brickY = (c * (brickHeight + brickPadding)) + brickOffsetTop;
-                bricks[c][r].x = brickX;
-                bricks[c][r].y = brickY;
-                ctx.beginPath();
-                ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = "#0095DD";
-                ctx.fill();
-                ctx.closePath();
-            }
-        }
-    }
-}
-
-function drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: " + score, 8, 20);
-}
-
-function drawLives() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
 }
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // drawBricks();
-    drawBall();
-    //drawPaddle();
-    drawScore();
-    drawLives();
-    drawHole();
-    collisionDetection();
-
-    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-        dx = -dx;
-    }
-    if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
-        dy = -dy;
-    }
-
-    if(paddleX > 100 && paddleX < 150 && paddleY > 100 && paddleY < 150){
-      document.location.reload();
-    }
-    if (rightPressed && paddleX < canvas.width - paddleWidth) {
-        paddleX += 7;
-    } else if (leftPressed && paddleX > 0) {
-        paddleX -= 7;
-    } else if (upPressed && paddleY > 0) {
-        paddleY -= 7;
-    } else if (downPressed && paddleY > 0) {
-        paddleY += 7;
-    }
-
-
-    x += dx;
-    y += dy;
-    requestAnimationFrame(draw);
+    ball.draw();
+    hole.draw();
 }
 
-draw();
+render();
