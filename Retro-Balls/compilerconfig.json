@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "www/scripts/hole.es5.js",
+    "inputFile": "www/scripts/hole.js"
+  },
+  {
+    "outputFile": "www/scripts/ball.es5.js",
+    "inputFile": "www/scripts/ball.js"
+  }
+]
