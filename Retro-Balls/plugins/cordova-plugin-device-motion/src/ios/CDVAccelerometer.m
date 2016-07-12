@@ -129,7 +129,7 @@
     self.haveReturnedResult = YES;
 }
 
-// TODO: Consider using filtering to isolate instantaneous data vs. gravity data -jm
+// TODO:0 Consider using filtering to isolate instantaneous data vs. gravity data -jm
 
 /*
  #define kFilteringFactor 0.1

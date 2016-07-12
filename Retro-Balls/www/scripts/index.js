@@ -20,9 +20,9 @@
 
 
     function onPause() {
-        // TODO: This application has been suspended. Save application state here.
+        // TODO:90 This application has been suspended. Save application state here.
     }
 
     function onResume() {
-        // TODO: This application has been reactivated. Restore application state here.
+        // TODO:70 This application has been reactivated. Restore application state here.
     }

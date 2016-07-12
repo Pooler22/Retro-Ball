@@ -18,8 +18,8 @@ class Ball {
     }
 
     addSpeed(x, y) {
-        this.speedX += 0.1 * x;
-        this.speedY += 0.1 * y;
+        this.speedX += 0.2 * x;
+        this.speedY += 0.2 * y;
         if (this.speedX > 10) {
             this.speedX = 10;
         } else if (this.speedX < -10) {
@@ -49,6 +49,23 @@ class Ball {
         if (this.positionY + this.radius >= height + y) {
             this.positionY = height + y - this.radius;
             this.speedY += 0.1;
+        }
+    }
+
+    friction() {
+        if (ball.speedX !== 0) {
+            if (ball.speedX > 0) {
+                ball.addSpeed(-0.1, 0);
+            } else {
+                ball.addSpeed(0.1, 0);
+            }
+        }
+        if (ball.speedY !== 0) {
+            if (ball.speedY > 0) {
+                ball.addSpeed(0, -0.1);
+            } else {
+                ball.addSpeed(0, 0.1);
+            }
         }
     }
 }
