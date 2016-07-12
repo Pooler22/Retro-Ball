@@ -1,20 +1,9 @@
 // jshint  esversion: 6
-class Ball {
-    constructor(radius, startPositionX, startPositionY) {
-        this.radius = radius;
-        this.startPositionX = this.positionX = startPositionX - radius;
-        this.startPositionY = this.positionY = startPositionY - radius;
-        this.color = "#0095DD";
+class Ball extends Circle {
+    constructor(radius, positionX, positionY, color) {
+        super(radius, positionX, positionY, color);
         this.speedX = 0;
         this.speedY = 0;
-    }
-
-    draw() {
-        ctx.beginPath();
-        ctx.arc(ball.positionX, ball.positionY, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.closePath();
     }
 
     addSpeed(x, y) {

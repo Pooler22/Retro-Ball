@@ -3,22 +3,31 @@
 
 <head>
     <meta charset="utf-8" />
-  <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
     <title>Retro balls</title>
 </head>
 
 <body>
-    <canvas id="myCanvas">
+    <canvas id="ui">
+
+    </canvas>
+    <canvas id="game">
         Your browser does not support the canvas element.
+    </canvas>
+    <canvas id="background">
     </canvas>
 
     <div id="example"></div>
     <script src="scripts/browser.min.js"></script>
-
+    <script type="application/javascript" src="scripts/drawable.js"></script>
+    <script type="application/javascript" src="scripts/circle.js"></script>
     <script type="application/javascript" src="scripts/controls.js"></script>
     <script type="application/javascript" src="scripts/hole.js"></script>
     <script type="application/javascript" src="scripts/ball.js"></script>
     <script type="application/javascript" src="scripts/game.js"></script>
+    <script type="application/javascript" src="scripts/button.js"></script>
+    <script type="application/javascript" src="scripts/ui.js"></script>
+    <script type="application/javascript" src="scripts/core.js"></script>
 
     <!-- <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
