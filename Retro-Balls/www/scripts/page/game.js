@@ -10,9 +10,9 @@ class Game extends Page {
     }
 
     init() {
-        document.addEventListener("keydown", this.controls.keyDownHandler, false);
-        document.addEventListener("keyup", this.controls.keyUpHandler, false);
-        document.addEventListener("mousemove", this.controls.mouseMoveHandler, false);
+        document.addEventListener("keydown", this.controls.keyDownHandler.bind(this.controls), false);
+        document.addEventListener("keyup", this.controls.keyUpHandler.bind(this.controls), false);
+        document.addEventListener("mousemove", this.controls.mouseMoveHandler.bind(this.controls), false);
         this.render();
     }
 

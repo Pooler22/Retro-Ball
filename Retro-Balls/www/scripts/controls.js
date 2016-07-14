@@ -5,9 +5,11 @@ class Controls {
         this.leftPressed = false;
         this.upPressed = false;
         this.downPressed = false;
+        this.keys = new Array(222);
     }
 
     keyUpHandler(e) {
+        this.keys[e.keyCode] = true;
         switch (e.keyCode) {
             case 37:
                 this.leftPressed = false;
