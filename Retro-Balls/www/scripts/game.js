@@ -1,45 +1,40 @@
 // jshint  esversion: 6
-var ctx, ball, hole, canvas, controls;
+class Game extends Page {
 
+    constructor() {
+        super('game', "rgb(155,205,255)");
 
-class Game {
+        this.elements.ball = new Ball(10, this.canvas.width / 2, this.canvas.height / 2 - 5, "#0095DD");
+        this.elements.hole = new Hole(20, this.canvas.width / 2 + 10, this.canvas.height / 3 - 10, "#0095DD");
+        this.controls = new Controls();
+    }
 
     init() {
-        canvas = document.getElementById('game');
-        if (canvas.getContext) {
-            ctx = canvas.getContext('2d');
-            ctx.canvas.style.backgroundColor = "rgb(155,205,255)";
-            ctx.canvas.width = window.innerWidth;
-            ctx.canvas.height = window.innerHeight;
-
-            ball = new Ball(10, canvas.width / 2, canvas.height / 2 - 5, "#0095DD");
-            hole = new Hole(20, canvas.width / 2 + 10, canvas.height / 3 - 10, "#0095DD");
-            controls = new Controls();
-
-            document.addEventListener("keydown", controls.keyDownHandler, false);
-            document.addEventListener("keyup", controls.keyUpHandler, false);
-            document.addEventListener("mousemove", controls.mouseMoveHandler, false);
-            Game.render();
-        }
+        document.addEventListener("keydown", this.controls.keyDownHandler, false);
+        document.addEventListener("keyup", this.controls.keyUpHandler, false);
+        document.addEventListener("mousemove", this.controls.mouseMoveHandler, false);
+        this.render();
     }
 
-    static render() {
-        Game.update();
-        Game.draw();
-        window.requestAnimationFrame(Game.render, ctx);
+    render() {
+        this.update(this.ctx);
+        this.draw(this.ctx);
+        window.requestAnimationFrame(this.render.bind(this), this.ctx);
     }
 
-    static update() {
-        ball.friction();
-        if (hole.colision(ball)) {
+    update() {
+        this.elements.ball.friction();
+        if (this.elements.hole.colision(this.elements.ball)) {
             document.location.reload();
         }
-        ball.colisionInside(0, 0, canvas.width, canvas.height);
+        this.elements.ball.colisionInside(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    static draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ball.draw();
-        hole.draw();
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.elements.ball.draw();
+        this.elements.hole.draw();
     }
+
+    resize() {}
 }

@@ -9,10 +9,10 @@ class Circle extends Drawable {
     }
 
     draw() {
-        ctx.beginPath();
-        ctx.arc(this.positionX, this.positionY, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.closePath();
+        game.ctx.beginPath();
+        game.ctx.arc(this.positionX, this.positionY, this.radius, 0, Math.PI * 2);
+        game.ctx.fillStyle = this.color;
+        game.ctx.fill();
+        game.ctx.closePath();
     }
 }

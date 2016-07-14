@@ -1,40 +1,41 @@
 // jshint  esversion: 6
-var ctx, canvas, controls, button1, button2;
-
-class UI {
-
+class UI extends Page {
+    constructor() {
+        super('ui', "rgb(155,205,255)");
+        this.elements.button1 = new Button("Start", this.ctx.canvas.width / 2, this.ctx.canvas.height / 3, 150, 50, "#0095DD", "white");
+        this.elements.button2 = new Button("Opcje", this.ctx.canvas.width / 2, 2 * (this.ctx.canvas.height / 3), 150, 50, "#0095DD", "white");
+    }
     init() {
-        canvas = document.getElementById('ui');
-        if (canvas.getContext) {
-            ctx = canvas.getContext('2d');
-            ctx.canvas.style.backgroundColor = "rgb(155,205,255)";
-            ctx.canvas.width = window.innerWidth;
-            ctx.canvas.height = window.innerHeight;
+        this.canvas.addEventListener("mousedown", this.doMouseDown, false);
+        this.render();
+    }
 
-            button1 = new Button("Start",100,100,100,100,"#0095DD");
-            button2 = new Button("Opcje",250,250,100,100,"#0095DD");
+    render() {
+        this.update();
+        this.draw();
+        window.requestAnimationFrame(this.render.bind(this), this.ctx);
+    }
 
-            UI.render();
+    doMouseDown(event) {
+        if (this.elements.button1.isClicked(event.pageX, event.pageY)) {
+            ui.levelSMenu();
+        } else if (this.elements.button2.isClicked(event.pageX, event.pageY)) {
+            ui.optionsSMenu();
         }
+        context = game;
     }
 
-    static render() {
-        UI.update();
-        UI.draw();
-        window.requestAnimationFrame(UI.render, ctx);
+    update() {
+
     }
 
-    static update() {
-        // ball.friction();
-        // if (hole.colision(ball)) {
-        //     document.location.reload();
-        // }
-        // ball.colisionInside(0, 0, canvas.width, canvas.height);
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.elements.button1.draw(this.ctx);
+        this.elements.button2.draw(this.ctx);
     }
 
-    static draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        button1.draw();
-        button2.draw();
+    resize() {
+
     }
 }

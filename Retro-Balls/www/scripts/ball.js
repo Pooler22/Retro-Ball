@@ -42,18 +42,18 @@ class Ball extends Circle {
     }
 
     friction() {
-        if (ball.speedX !== 0) {
-            if (ball.speedX > 0) {
-                ball.addSpeed(-0.1, 0);
+        if (this.speedX !== 0) {
+            if (this.speedX > 0) {
+                this.addSpeed(-0.1, 0);
             } else {
-                ball.addSpeed(0.1, 0);
+                this.addSpeed(0.1, 0);
             }
         }
-        if (ball.speedY !== 0) {
-            if (ball.speedY > 0) {
-                ball.addSpeed(0, -0.1);
+        if (this.speedY !== 0) {
+            if (this.speedY > 0) {
+                this.addSpeed(0, -0.1);
             } else {
-                ball.addSpeed(0, 0.1);
+                this.addSpeed(0, 0.1);
             }
         }
     }
