@@ -5,6 +5,14 @@ var ui;
 var backgorund;
 window.onload = () => {
     if (Page.checkCanvas) {
+        var pageManager = new PageManager();
+        pageManager.addPage('home');
+        pageManager.addPage('options');
+        pageManager.addPage('levels');
+        //pageManager.addPage('game');
+
+        pageManager.openPage('home');
+
         game = new Game();
         ui = new UI();
         backgorund = new Background();

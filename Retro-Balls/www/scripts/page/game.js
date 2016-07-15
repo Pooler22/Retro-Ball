@@ -23,6 +23,10 @@ class Game extends Page {
     }
 
     update() {
+        // for (let i of Object.values(game.elements)) {
+        //     i.update();
+        // }
+
         this.elements.ball.friction();
         if (this.elements.hole.colision(this.elements.ball)) {
             document.location.reload();
@@ -32,8 +36,9 @@ class Game extends Page {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.elements.ball.draw();
-        this.elements.hole.draw();
+        for (let i of Object.values(game.elements)) {
+            i.draw();
+        }
     }
 
     resize() {}
