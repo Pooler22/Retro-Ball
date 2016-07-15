@@ -4,14 +4,21 @@ class PageManager {
         this.pages = {};
     }
 
-    addPage(namePage, backgroundColor) {
-        Page.init(namePage,backgroundColor);//new Page(namePage, backgroundColor);
-        this.pages[namePage] = new Page(namePage+'Canvas', backgroundColor);
+    addPage(page) {
+        this.pages[page.name] = page;
     }
-    removePage() {}
-    openPage() {}
 
-    draw() {}
+    openPage(namePage) {
+        this.pages[namePage].openPage();
+    }
+
+    removePage() {}
+
+    render() {
+        this.pages.home.render();
+    }
+    draw() {
+
+    }
     update() {}
-    render() {}
 }

@@ -1,23 +1,38 @@
 // jshint  esversion: 6
 class Page {
+    constructor(name) {
+        this.name = name;
+        this.layers = {};
 
-    static init(namePage) {
-        let elementDiv = document.createElement('div');
-        elementDiv.setAttribute("id", namePage + 'Div');
-        var elementCanvas = document.createElement('canvas');
-        elementCanvas.setAttribute("id", namePage + 'Canvas');
-        elementDiv.appendChild(elementCanvas);
-        document.body.appendChild(elementDiv);
+        this.content = document.createElement('div');
+        this.content.setAttribute("id", name);
+        this.content.setAttribute("style", 'display:none;');
+        document.body.appendChild(this.content);
     }
 
-    constructor(nameCanvas, colorBackground) {
-        this.canvas = document.getElementById(nameCanvas);
-        this.ctx = this.canvas.getContext('2d');
-        this.ctx.canvas.style.backgroundColor = colorBackground;
-        this.ctx.canvas.width = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
+    openPage() {
+        this.content.style.display = null;
+    }
 
-        this.elements = {};
+    addLayer(layer) {
+      this.layers[layer.name] = layer;
+      document.getElementById(this.name).appendChild(this.layers[layer.name].canvas);
+    }
+
+    render() {
+        this.update();
+        this.draw();
+        window.requestAnimationFrame(this.render.bind(this), this.ctx);
+    }
+
+    update() {
+
+    }
+
+    draw() {
+      for (let i of Object.values(this.layers)) {
+          i.draw();
+      }
     }
 
     static checkCanvas(nameCanvas) {
@@ -26,6 +41,5 @@ class Page {
         } else {
             return false;
         }
-
     }
 }

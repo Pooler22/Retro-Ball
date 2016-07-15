@@ -6,7 +6,7 @@ class UI extends Page {
         this.elements.button2 = new Button("Opcje", this.ctx.canvas.width / 2, 2 * (this.ctx.canvas.height / 3), 150, 50, "#0095DD", "white");
     }
     init() {
-        this.canvas.addEventListener("mousedown", this.doMouseDown, false);
+
         this.render();
     }
 
@@ -16,14 +16,6 @@ class UI extends Page {
         window.requestAnimationFrame(this.render.bind(this), this.ctx);
     }
 
-    doMouseDown(event) {
-        if (this.elements.button1.isClicked(event.pageX, event.pageY)) {
-            ui.levelSMenu();
-        } else if (this.elements.button2.isClicked(event.pageX, event.pageY)) {
-            ui.optionsSMenu();
-        }
-        context = game;
-    }
 
     update() {
 
