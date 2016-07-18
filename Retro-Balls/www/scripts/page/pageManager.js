@@ -2,6 +2,7 @@
 class PageManager {
     constructor() {
         this.pages = {};
+        this.activePage = "";
     }
 
     addPage(page) {
@@ -9,13 +10,18 @@ class PageManager {
     }
 
     openPage(namePage) {
+      if(this.activePage !== ""){
+          this.pages[this.activePage].content.setAttribute("style", 'display:none;');
+      }
+
+        this.activePage = namePage;
         this.pages[namePage].openPage();
     }
 
     removePage() {}
 
     render() {
-        this.pages.home.render();
+        this.pages[this.activePage].render();
     }
     draw() {
 
