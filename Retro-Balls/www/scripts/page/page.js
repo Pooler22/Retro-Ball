@@ -2,6 +2,7 @@
 class Page {
     constructor(name) {
         this.name = name;
+        this.active = false;
         this.layers = {};
 
         this.content = document.createElement('div');
@@ -15,14 +16,16 @@ class Page {
     }
 
     addLayer(layer) {
-      this.layers[layer.name] = layer;
-      document.getElementById(this.name).appendChild(this.layers[layer.name].canvas);
+        this.layers[layer.name] = layer;
+        document.getElementById(this.name).appendChild(this.layers[layer.name].canvas);
     }
 
     render() {
-        this.update();
-        this.draw();
-        window.requestAnimationFrame(this.render.bind(this), this.ctx);
+        if (this.active) {
+            this.update();
+            this.draw();
+            window.requestAnimationFrame(this.render.bind(this), this.ctx);
+        }
     }
 
     update() {
@@ -30,9 +33,9 @@ class Page {
     }
 
     draw() {
-      for (let i of Object.values(this.layers)) {
-          i.draw();
-      }
+        for (let i of Object.values(this.layers)) {
+            i.draw();
+        }
     }
 
     static checkCanvas(nameCanvas) {
